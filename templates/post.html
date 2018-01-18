@@ -1,0 +1,37 @@
+{% extends 'base.htm' %}
+{% load custom_markdown %}
+{% block content %}
+    <div id="posts" class="posts-expand">
+        <article class="post post-type-normal">
+            <div class="post-block">
+                <header class="post-header container sidebar-position-left page-post-detail">
+                    <h1 class="post-title">{{ blog.title }}</h1>
+                    <div class="post-meta">
+                        <span class="post-time">
+                          <span class="post-meta-item-icon">
+                            <i class="fa fa-calendar-o"></i>
+                          </span>
+                          <span class="post-meta-item-text">发表于</span>
+                          <time title="创建于">{{ blog.created }}</time></span>
+                    </div>
+                </header>
+                <div class="post-body">
+                    {{ blog.content|custom_markdown }}
+                </div>
+                <footer class="post-footer">
+                    <div class="post-tags">
+                        <a href="#">{{ tag }}</a></div>
+                    <div class="post-nav">
+                        <div class="post-nav-next post-nav-item">
+                            <a href="#" title="Hello World">
+                                <i class="fa fa-chevron-left"></i>上一篇文字</a>
+                        </div>
+                        <span class="post-nav-divider"></span>
+                        <div class="post-nav-prev post-nav-item"></div>
+                    </div>
+                </footer>
+            </div>
+        </article>
+        <div class="post-spread"></div>
+    </div>
+{% endblock %}
