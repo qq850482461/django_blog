@@ -1,4 +1,5 @@
 {% extends 'base.htm' %}
+{% load clean_md %}
 {% block content %}
     <div id="content" class="content">
         <section id="posts" class="posts-expand">
@@ -19,7 +20,7 @@
                             </div>
                         </header>
                         <div class="post-body">
-                            {{ i.content| truncatewords:"15" }}
+                            {{ i.content|clean_md }}
                             <div class="post-button text-center">
                                 <a class="btn" href="{% url 'post' i.id %}">
                                     阅读全文&raquo; </a>
@@ -31,6 +32,23 @@
                     </div>
                 </article>
             {% endfor %}
+            <nav class="pagination">
+                {% if posts.has_previous %}
+                    <a class="extend prev" href="?page={{ posts.previous_page_number }}"><i
+                            class="fa fa-angle-left"></i></a>
+                {% endif %}
+                {% for page in posts.paginator.page_range %}
+                    {% if posts.number == page %}
+                        <span class="page-number current">{{ page }}</span>
+                    {% else %}
+                        <a class="page-number" href="?page={{ page }}">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                    <a class="extend next" href="?page={{ posts.next_page_number }}"><i
+                            class="fa fa-angle-right"></i></a>
+                {% endif %}
+            </nav>
         </section>
     </div>
 {% endblock %}
