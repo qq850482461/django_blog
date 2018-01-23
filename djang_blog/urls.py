@@ -23,4 +23,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', blog_views.index, name='index'),
                   path('post/<int:post_id>/', blog_views.post, name='post'),
+                  path('tags/', blog_views.tag, name='tags'),
+                  path('tags/<str:tag_name>/', blog_views.tag, name='tags'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

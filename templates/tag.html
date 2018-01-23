@@ -1,0 +1,17 @@
+{% extends 'base.htm' %}
+{% block content %}
+    <div id="content" class="content">
+        <div id="posts" class="posts-expand">
+            <div class="tag-cloud">
+                <div class="tag-cloud-title">
+                    目前共计 {{ tags.count }} 个标签
+                </div>
+                <div class="tag-cloud-tags">
+                    {% for tag in tags %}
+                        <a href="{% url 'tags' tag.name %}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

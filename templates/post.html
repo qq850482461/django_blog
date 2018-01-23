@@ -20,18 +20,28 @@
                 </div>
                 <footer class="post-footer">
                     <div class="post-tags">
-                        <a href="#">{{ tag }}</a></div>
+                        {% for tag in blog.tags.all %}
+                            <a href="#">#{{ tag }}</a>
+                        {% endfor %}
+                    </div>
                     <div class="post-nav">
-                        <div class="post-nav-next post-nav-item">
-                            <a href="#" title="Hello World">
-                                <i class="fa fa-chevron-left"></i>上一篇文字</a>
-                        </div>
+                        {% if previous_post %}
+                            <div class="post-nav-next post-nav-item">
+                                <a href="{% url 'post' previous_post.id %}"><i class="fa fa-chevron-left"></i>{{ previous_post.title }}</a>
+                            </div>
+                        {% endif %}
                         <span class="post-nav-divider"></span>
-                        <div class="post-nav-prev post-nav-item"></div>
+                        {% if next_post %}
+                            <div class="post-nav-prev post-nav-item">
+                                <a href="{% url 'post' next_post.id %}"><i class="fa fa-chevron-right"></i>{{ next_post.title }}</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </footer>
             </div>
         </article>
-        <div class="post-spread"></div>
+        <div class="post-spread">
+
+        </div>
     </div>
 {% endblock %}
