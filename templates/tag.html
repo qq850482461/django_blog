@@ -1,17 +1,45 @@
-{% extends 'base.htm' %}
+{% extends 'base.html' %}
 {% block content %}
     <div id="content" class="content">
-        <div id="posts" class="posts-expand">
-            <div class="tag-cloud">
-                <div class="tag-cloud-title">
-                    目前共计 {{ tags.count }} 个标签
+        {% if tag_flag %}
+            <div id="posts" class="posts-expand">
+                <div class="tag-cloud">
+                    <div class="tag-cloud-title">
+                        目前共计 {{ tags.count }} 个标签
+                    </div>
+                    <div class="tag-cloud-tags">
+                        {% for tag in tags %}
+                            <a href="{% url 'tags' tag.name %}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="tag-cloud-tags">
-                    {% for tag in tags %}
-                        <a href="{% url 'tags' tag.name %}">{{ tag.name }}</a>
+            </div>
+            </div>
+        {% else %}
+            <div class="post-block tag">
+                <div id="posts" class="posts-collapse">
+                    <div class="collection-title">
+                        <h1>{{ tag.name }}
+                            <small>标签</small>
+                        </h1>
+                    </div>
+                    {% for post in posts %}
+                        <article class="post post-type-normal">
+                            <header class="post-header">
+                                <h2 class="post-title">
+                                    <a class="post-title-link" href="{% url 'post' post.id %}">
+                                        <span>{{ post.title }}</span>
+                                    </a>
+                                </h2>
+                                <div class="post-meta">
+                                    <time class="post-time">
+                                        {{ post.created | date:"m-d" }}
+                                    </time>
+                                </div>
+                            </header>
+                        </article>
                     {% endfor %}
                 </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
 {% endblock %}
