@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, InvalidPage
-from .models import Post, Tag
+from .models import Post, Tag, About
+import time
 
 
 def index(request):
@@ -60,4 +61,34 @@ def tag(request, tag_name=None):
 
 
 def archives(request):
-    return render(request, 'archives.html')
+    """
+    归档页面,按所有年份进行排序
+    :param request:
+    :return:
+    """
+
+    this_year = time.strftime('%Y', time.localtime(time.time()))
+    # 查询比当前年份小的所有年份数据
+    previous_year = Post.objects.filter(created__year__lt=this_year).all()
+    # 获得出数据库所有年份int类型列表
+    previous_list = [int(i.created.strftime('%Y')) for i in previous_year]
+    previous_list.append(int(this_year))
+
+    all_year = list(set(previous_list))
+    # 反转列表,倒序排列
+    all_year.reverse()
+    # 按格式序列化
+    data = [{str(i): Post.objects.filter(created__year=i).order_by('-created')} for i in all_year]
+    # 所有文章数量
+    count = Post.objects.all().count()
+    return render(request, 'archives.html', context={'datas': data, 'count': count})
+
+
+def about(request):
+    """
+    关于页面
+    :param request:
+    :return:
+    """
+    data = About.objects.all().first()
+    return render(request, 'about.html', context={'data': data})

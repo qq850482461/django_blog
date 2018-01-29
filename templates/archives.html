@@ -4,18 +4,25 @@
         <div class="post-block archive">
             <div id="posts" class="posts-collapse">
                 <span class="archive-move-on"></span>
-                <span class="archive-page-counter"> 嗯..! 目前共计 N 篇日志。 继续努力。 </span>
-                <div class="collection-title">
-                    <h1 class="archive-year" >年份</h1>
-                </div>
-                <article class="post post-type-normal">
-                    <header class="post-header">
-                        <h2 class="post-title"><a class="post-title-link" href="#"> <span>文章</span> </a></h2>
-                        <div class="post-meta">
-                            <time class="post-time">日期</time>
+                <span class="archive-page-counter"> 嗯..! 目前共计 {{ count }} 篇日志。 继续努力。 </span>
+                {% for data in datas %}
+                    {% for date,posts in data.items %}
+                        <div class="collection-title">
+                            <h1 class="archive-year">{{ date }}</h1>
                         </div>
-                    </header>
-                </article>
+                        {% for post in posts %}
+                            <article class="post post-type-normal">
+                                <header class="post-header">
+                                    <h2 class="post-title"><a class="post-title-link" href="#"> <span>{{ post.title }}</span>
+                                    </a></h2>
+                                    <div class="post-meta">
+                                        <time class="post-time">{{ post.created | date:"m-d" }}</time>
+                                    </div>
+                                </header>
+                            </article>
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -26,4 +26,5 @@ urlpatterns = [
                   path('tags/', blog_views.tag, name='tags'),
                   path('tags/<str:tag_name>/', blog_views.tag, name='tags'),
                   path('archives/', blog_views.archives, name='archives'),
+                  path('about/', blog_views.about, name='about'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

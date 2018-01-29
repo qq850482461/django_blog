@@ -42,3 +42,20 @@ class Post(models.Model):
 
     def __repr__(self):
         return '<Post:{0}>'.format(self.id)
+
+
+class About(models.Model):
+    """
+    关于页面
+    """
+    content = models.TextField('内容')
+
+    class Meta:
+        verbose_name = '关于页面'
+        verbose_name_plural = '关于页面'
+
+    def __str__(self):
+        return str(self.id)
+
+    def __repr__(self):
+        return '<About:{0}>'.format(self.id)
