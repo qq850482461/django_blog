@@ -28,3 +28,4 @@ urlpatterns = [
                   path('archives/', blog_views.archives, name='archives'),
                   path('about/', blog_views.about, name='about'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
