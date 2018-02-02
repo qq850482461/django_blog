@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Tag(models.Model):
@@ -26,12 +27,12 @@ class Post(models.Model):
     """
     title = models.CharField('标题', max_length=20)
     content = models.TextField('内容')
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField('创建日期', default=timezone.now)
 
     # 关联'User父表',一对多关系
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     # 关联'Tag',多对多关系(这里名称不能用小写的类名),允许为空,系统会自动添加一张辅助表
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True,verbose_name='关联标签')
 
     class Meta:
         verbose_name = '文章'
