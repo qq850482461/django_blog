@@ -25,14 +25,14 @@ class Post(models.Model):
     文章模型
     '子表'添加外键关联'父表'
     """
-    title = models.CharField('标题', max_length=20)
+    title = models.CharField('标题', max_length=200)
     content = models.TextField('内容')
     created = models.DateTimeField('创建日期', default=timezone.now)
 
     # 关联'User父表',一对多关系
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
+    author = models.ForeignKey(User, blank=True, on_delete=models.CASCADE, verbose_name='作者')
     # 关联'Tag',多对多关系(这里名称不能用小写的类名),允许为空,系统会自动添加一张辅助表
-    tags = models.ManyToManyField(Tag, blank=True,verbose_name='关联标签')
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name='关联标签')
 
     class Meta:
         verbose_name = '文章'
