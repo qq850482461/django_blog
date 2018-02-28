@@ -13,7 +13,7 @@
                         {% for post in posts %}
                             <article class="post post-type-normal">
                                 <header class="post-header">
-                                    <h2 class="post-title"><a class="post-title-link" href="#"> <span>{{ post.title }}</span>
+                                    <h2 class="post-title"><a class="post-title-link" href="{% url 'post' post.id %}"> <span>{{ post.title }}</span>
                                     </a></h2>
                                     <div class="post-meta">
                                         <time class="post-time">{{ post.created | date:"m-d" }}</time>

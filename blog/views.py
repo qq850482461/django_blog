@@ -32,9 +32,8 @@ def post(request, post_id):
     next_post : 当前文章的下一篇
     """
     blog = get_object_or_404(Post, id=int(post_id))
-    previous_post = Post.objects.filter(id__lt=int(blog.id)).last()
-    next_post = Post.objects.filter(id__gt=int(blog.id)).first()
-
+    previous_post = Post.objects.order_by('-created').filter(id__gt=int(blog.id)).last()
+    next_post = Post.objects.order_by('-created').filter(id__lt=int(blog.id)).first()
     context = {
         'blog': blog,
         'previous_post': previous_post,
